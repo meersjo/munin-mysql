@@ -40,7 +40,8 @@ sub graphs { return {
             global_attrs => {
                 title  => 'Command Counters',
                 vlabel => 'Commands per ${graph_period}',
-                total  => 'Questions',
+                # Makes visual interpretion harder when there's a lot of oscillation
+                #total  => 'Questions',
             },
             data_source_attrs => {},
         },
