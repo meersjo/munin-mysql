@@ -259,7 +259,8 @@ sub graphs { return {
             global_attrs => {
                 title  => 'Select types',
                 vlabel => 'Commands per ${graph_period}',
-                total  => 'Total',
+                # Removed for clarity
+                #total  => 'Total',
             },
             data_source_attrs => {},
         },
