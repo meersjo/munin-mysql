@@ -39,7 +39,8 @@ sub graphs { return {
             global_attrs => {
                 title  => 'InnoDB Buffer Pool Activity',
                 vlabel => 'Activity per ${graph_period}',
-                total  => 'Total',
+                # Makes spikes harder to interpret
+                #total  => 'Total',
             },
             data_source_attrs => {
                 draw => 'LINE1',
@@ -233,7 +234,8 @@ sub graphs { return {
             global_attrs => {
                 title  => 'InnoDB Row Operations',
                 vlabel => 'Operations per ${graph_period}',
-                total  => 'Total',
+                # Makes spikes harder to interpret
+                #total  => 'Total',
             },
             data_source_attrs => {},
         },
