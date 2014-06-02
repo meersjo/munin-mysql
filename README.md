@@ -34,6 +34,9 @@ Further Information
 The plugin documentation is contained in the plugin file as POD. View
 it with perldoc.
 
+The SchemaSize plugin performs a pretty heavy query on information_schema.tables.
+Careful when using this on a large environment.
+
 There is a blog post with some general information and screenshots at
 <http://oierud.name/bliki/ImprovedMuninGraphsForMySQL.html>
 
@@ -69,10 +72,12 @@ Troubleshooting
   <http://github.com/kjellm/munin-mysql/issues>
 
 
-Author
-------
+Authors
+-------
 
-Kjell-Magne Øierud &lt;kjellm AT oierud DOT net&gt;
+Johan De Meersman &lt;vegivamp AT tuxera DOT be&gt;
+
+Blatantly stolen, I mean forked off the code by Kjell-Magne Øierud &lt;kjellm AT oierud DOT net&gt;
 
 Inspired by the cacti graphs made by Xaprb
 http://code.google.com/p/mysql-cacti-templates/ as viewed on

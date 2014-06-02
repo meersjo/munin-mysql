@@ -209,10 +209,6 @@ my %graphs = ();
 sub main {
     my $command = $ARGV[0] || 'show';
 
-    for my $graph_package (__PACKAGE__->plugins) {
-        %graphs = (%graphs, %{$graph_package->graphs});
-    }
-
     my %command_map = (
         'autoconf' => \&autoconf,
         'config'   => \&config,
@@ -222,21 +218,29 @@ sub main {
     die "Unknown command: $command" 
         unless exists $command_map{$command};
 
-    build_instance();
-
     if ($command eq 'autoconf') {
         return $command_map{$command}->();
     }
-    else {
-        if ($command eq 'show') {
-            collect_data();
+
+    build_instance();
+
+    my $dbh = db_connect() || die "Can't connect to DB";
+    collect_data($dbh);
+
+    for my $graph_package (__PACKAGE__->plugins) {
+        if ($graph_package->can('collect_data')) {
+          # Looks silly, but otherwise you destroy $data before copying it.
+          my $dummy = {%{$data}, %{$graph_package->collect_data($dbh)}};
+          $data = $dummy;
         }
-        for my $graph (sort keys %graphs) {
-            print "multigraph mysql_$graph$instance\n";
-            $command_map{$command}->($graph);
-        }
+        %graphs = (%graphs, %{$graph_package->graphs($data)});
     }
-    return 0;
+
+    for my $graph (sort keys %graphs) {
+        print "multigraph mysql_$graph$instance\n";
+        $command_map{$command}->($graph);
+    }
+return 0;
 }
 
 
@@ -339,16 +343,16 @@ sub db_connect {
 
     return DBI->connect($dsn, $config{user}, $config{password}, {
         RaiseError       => 1,
-        PrintError       => 0,
+        PrintError       => 1,
         FetchHashKeyName => 'NAME_lc',
     });
 }
 
 
 sub collect_data {
-    $data = {};
+    my ($dbh) = @_;
 
-    my $dbh = db_connect();
+    $data = {};
 
     # Set up defaults in case the server is not a slave
     $data->{relay_log_space}       = 0;
