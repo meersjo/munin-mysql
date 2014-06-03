@@ -1,15 +1,13 @@
 Munin - MySQL
 =============
 
-[![Build Status](https://travis-ci.org/kjellm/munin-mysql.png?branch=master)](https://travis-ci.org/kjellm/munin-mysql)
-
 Munin plugin for showing graphs of MySQL resource usage.
 
 
 Installation
 ------------
 
-1. Download zip file from Github and unzip (https://github.com/kjellm/munin-mysql/archive/master.zip)
+1. Download zip file from Github and unzip (https://github.com/meersjo/munin-mysql/archive/master.zip)
 2. Install dependencies 
     - munin-node
     - Perl modules: DBI, DBD::mysql, Module::Pluggable
@@ -35,12 +33,15 @@ The plugin documentation is contained in the plugin file as POD. View
 it with perldoc.
 
 The SchemaSize plugin performs a pretty heavy query on information_schema.tables.
-Careful when using this on a large environment. Since it is SLOW, you may also need
-to set timeout in the plugin config. See http://munin-monitoring.org/wiki/plugin-conf.d
-On 5.1.17+, there's a DIRTY HACK in the code that speeds it up. Should have zero impact,
-but you may still want to read the official documentation on the setting:
+Careful when using this on a large environment. Since it is SLOW, you may also 
+need to set timeout in the plugin config. See http://munin-monitoring.org/wiki/plugin-conf.d
+On 5.1.17+, there's a DIRTY HACK in the code that speeds it up for InnoDB tables.
+Should have zero impact, but you may still want to read the official
+documentation on the setting:
 http://dev.mysql.com/doc/refman/5.1/en/innodb-parameters.html#sysvar_innodb_stats_on_metadata
-I don't have a lower version to test on, but it should simply pass the hack and work slowly.
+
+I don't have a lower version to test on, but it should simply pass the hack and
+work slowly.
 
 There is a blog post with some general information and screenshots at
 <http://oierud.name/bliki/ImprovedMuninGraphsForMySQL.html>
@@ -57,7 +58,7 @@ There is a wiki at <https://github.com/kjellm/munin-mysql/wiki>
 ### Source code
 
 The source is hosted at github:
-<http://github.com/kjellm/munin-mysql/>
+<http://github.com/meersjo/munin-mysql/>
 
 
 Troubleshooting
@@ -74,7 +75,7 @@ Troubleshooting
   <http://munin.projects.linpro.no/wiki/Debugging_Munin_plugins>
 
 - Bugs should be reported to the issue tracker on github
-  <http://github.com/kjellm/munin-mysql/issues>
+  <http://github.com/meersjo/munin-mysql/issues>
 
 
 Authors
