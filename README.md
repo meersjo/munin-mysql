@@ -35,7 +35,12 @@ The plugin documentation is contained in the plugin file as POD. View
 it with perldoc.
 
 The SchemaSize plugin performs a pretty heavy query on information_schema.tables.
-Careful when using this on a large environment.
+Careful when using this on a large environment. Since it is SLOW, you may also need
+to set timeout in the plugin config. See http://munin-monitoring.org/wiki/plugin-conf.d
+On 5.1.17+, there's a DIRTY HACK in the code that speeds it up. Should have zero impact,
+but you may still want to read the official documentation on the setting:
+http://dev.mysql.com/doc/refman/5.1/en/innodb-parameters.html#sysvar_innodb_stats_on_metadata
+I don't have a lower version to test on, but it should simply pass the hack and work slowly.
 
 There is a blog post with some general information and screenshots at
 <http://oierud.name/bliki/ImprovedMuninGraphsForMySQL.html>
