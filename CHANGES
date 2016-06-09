@@ -5,6 +5,8 @@
  - Added a new SchemaSize module (WARNING: SLOW)
 
  - Threw around the init sequence and added support for in-module collect_data() sub
+
+
 2010-02-16: version 0.3.1
 
  - Changed data source type for Opened_tables to DERIVE (again).
