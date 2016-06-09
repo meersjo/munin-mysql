@@ -174,6 +174,8 @@ sub graphs { return {
             {name => 'Open_tables',      label  => 'Open tables',
                                          info   => 'The number of tables that are open.'},
             {name => 'Opened_tables',    label  => 'Opened tables',
+                                         type   => 'DERIVE',
+                                         min    => 0,
                                          info   => 'The number of tables that have been opened.'},
             {name => 'Opened_views',     label  => 'Opened Views'},
         ],
