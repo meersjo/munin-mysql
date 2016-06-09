@@ -204,6 +204,8 @@ sub graphs { return {
                                          info   => 'Number of currently cached .frm files.'},
             {name => 'Opened_table_definitions',
                                          label  => 'Opened table definitions',
+                                         type   => 'DERIVE',
+                                         min    => 0,
                                          info   => 'Number of .frm files that have been cached.'},
         ],
     },
