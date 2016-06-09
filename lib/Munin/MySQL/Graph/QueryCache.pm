@@ -51,6 +51,37 @@ sub graphs { return {
                                             info  => 'The amount of free memory for the query cache.'},
         ],
     },
+
+    #---------------------------------------------------------------------
+
+    qcache_avg_block_size=> {
+        config => {
+            global_attrs => {
+                title  => 'Query Cache Average Block Size',
+                vlabel => 'Bytes',
+                args   => "--base 1024 --lower-limit 0",
+            },
+            data_source_attrs => {
+                draw => 'LINE1',
+                type => 'GAUGE',
+            },
+        },
+        data_sources => [
+            {name => 'query_cache_min_res_unit',  label  => 'Minimum reservation size',
+                                                  info   => 'The minimum block size that is allocated for each entry.',
+                                                  colour => '000000'},
+            {name => 'avg_block_size',            label  => 'Average block size',
+                                                  info   => 'The average size of currently allocated Qcache blocks.',
+                                                  colour => '00CC00',
+                                                  value  => sub {
+                                                                  if ( $_[0]->{Qcache_queries_in_cache} > 0 ) {
+                                                                    return (($_[0]->{QCache_total_blocks} - $_[0]->{Qcache_free_blocks}) * $_[0]->{query_cache_min_res_unit}) / $_[0]->{Qcache_queries_in_cache}
+                                                                  } else {
+                                                                    return 0
+                                                                  }
+                                                              }},
+        ],
+    },
 }}
 
 1;
