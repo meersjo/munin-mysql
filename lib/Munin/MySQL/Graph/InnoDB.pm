@@ -3,6 +3,22 @@ package Munin::MySQL::Graph::InnoDB;
 use warnings;
 use strict;
 
+sub collect_data {
+    my $self = shift;
+    my ($dbh) = @_;
+    my $data = {};
+
+    # Innodb_lsn_* is a Percona-ism. If the variable doesn't exist we substitute
+    # the values from the InnoDB status LOG section.
+    if ( not defined $main::data->{Innodb_lsn_current} ) {
+      $data->{Innodb_lsn_current}         = $main::data->{ib_log_written};
+      $data->{Innodb_lsn_flushed}         = $main::data->{ib_log_flush};
+      $data->{Innodb_lsn_last_checkpoint} = $main::data->{ib_log_checkpoint};
+    }
+
+    return $data;
+}
+
 sub graphs { return {
     innodb_bpool => {
         config => {
