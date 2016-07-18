@@ -75,7 +75,7 @@ sub graphs { return {
                                                   colour => '00CC00',
                                                   value  => sub {
                                                                   if ( $_[0]->{Qcache_queries_in_cache} > 0 ) {
-                                                                    return (($_[0]->{QCache_total_blocks} - $_[0]->{Qcache_free_blocks}) * $_[0]->{query_cache_min_res_unit}) / $_[0]->{Qcache_queries_in_cache}
+                                                                    return (($_[0]->{Qcache_total_blocks} - $_[0]->{Qcache_free_blocks}) * $_[0]->{query_cache_min_res_unit}) / $_[0]->{Qcache_queries_in_cache}
                                                                   } else {
                                                                     return 0
                                                                   }
