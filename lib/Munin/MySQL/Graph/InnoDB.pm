@@ -168,6 +168,7 @@ sub graphs { return {
         config => {
             global_attrs => {
                 title  => 'InnoDB Log Sequence Number',
+                args   => '--base 1000 --alt-autoscale',
             },
             data_source_attrs => {
                 draw  => 'LINE1',
@@ -175,12 +176,15 @@ sub graphs { return {
         },
         data_sources => [
             { name  => 'Innodb_lsn_current',
+              type  => 'GAUGE',
               label => 'Current',
               info  => 'Log sequence number as shown in the LOG section of the SHOW ENGINE INNODB STATUS output.'},
             { name  => 'Innodb_lsn_flushed',
+              type  => 'GAUGE',
               label => 'Flushed',
               info  => 'Flushed up to log sequence number as shown in the LOG section of the SHOW ENGINE INNODB '},
             { name  => 'Innodb_lsn_last_checkpoint', 
+              type  => 'GAUGE',
               label => 'Last checkpoint',
               info  => 'Log sequence number last checkpoint as shown in the LOG section of the SHOW ENGINE INNODB STATUS output.'},
         ],
